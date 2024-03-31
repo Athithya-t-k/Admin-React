@@ -16,6 +16,7 @@
     "build": "vite build",
     "lint": "eslint \"src/**/*.js\"",
     "serve": "vite preview",
+    "dev": "vite",
     "start": "vite"
   },
   "dependencies": {
@@ -49,6 +50,6 @@
     "postcss": "^8.4.38",
     "prettier": "3.2.5",
     "sass": "^1.72.0",
-    "vite": "^5.2.6"
+    "vite": "^5.2.7"
   }
 }
