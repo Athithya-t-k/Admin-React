@@ -15,11 +15,48 @@ import {
   CPagination,
   CPaginationItem,
   CAvatar,
-  CDropdownToggle,
+  CModal,
+  CModalBody,
+  CModalFooter,
+  CModalHeader,
+  CModalTitle
 } from '@coreui/react'
 import avatar8 from './../../assets/images/avatars/8.jpg'
 import { cilLowVision,cilTextShapes,cilDelete } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
+
+
+const VerticallyCentered = () => {
+  const [visible, setVisible] = useState(false)
+  return (
+    <>
+
+      <CButton
+        color='danger'
+        active={true}
+        className='me-2 mb-2'
+        onClick={() => setVisible(!visible)}
+      >
+        <CIcon icon={cilDelete} className="me-2" />
+        Delete
+      </CButton>
+      <CModal alignment="center" visible={visible} onClose={() => setVisible(false)}>
+        <CModalHeader>
+          <CModalTitle>Are you sure ?</CModalTitle>
+        </CModalHeader>
+        <CModalBody>
+          Are you sure to delete this user?
+        </CModalBody>
+        <CModalFooter>
+          <CButton color="secondary" onClick={() => setVisible(false)}>
+            Close
+          </CButton>
+          <CButton color="primary">Save changes</CButton>
+        </CModalFooter>
+      </CModal>
+    </>
+  )
+}
 
 const ProductList = () => {
 
@@ -59,6 +96,8 @@ const ProductList = () => {
                         <CAvatar src={avatar8} size="md" />
                     </CTableDataCell>
                     <CTableDataCell style={{width:'300px'}}>
+                    <a href='/product/view'>
+
                       <CButton
                           color='success'
                           active={true}
@@ -67,22 +106,18 @@ const ProductList = () => {
                           <CIcon icon={cilLowVision} className="me-2" />
                           View
                         </CButton>
+                        </a>
+                        <a href='/product/edit'>
                         <CButton
-                        color='primary'
-                        active={true}
-                        className='me-2 mb-2'
-                      >
-                        <CIcon icon={cilTextShapes} className="me-2" />
-                        Edit
-                      </CButton>
-                      <CButton
-                        color='danger'
-                        active={true}
-                        className='me-2 mb-2'
-                      >
-                        <CIcon icon={cilDelete} className="me-2" />
-                        Delete
-                      </CButton>
+                          color='primary'
+                          active={true}
+                          className='me-2 mb-2'
+                        >
+                          <CIcon icon={cilTextShapes} className="me-2" />
+                          Edit
+                        </CButton>
+                        </a>
+                        {VerticallyCentered()}
                     </CTableDataCell>
 
                   </CTableRow>
@@ -96,6 +131,8 @@ const ProductList = () => {
                         <CAvatar src={avatar8} size="md" />
                     </CTableDataCell>
                     <CTableDataCell style={{width:'300px'}}>
+                    <a href='/product/view'>
+
                       <CButton
                           color='success'
                           active={true}
@@ -104,6 +141,8 @@ const ProductList = () => {
                           <CIcon icon={cilLowVision} className="me-2" />
                           View
                         </CButton>
+                        </a>
+                        <a href='/product/edit'>
                         <CButton
                         color='primary'
                         active={true}
@@ -112,14 +151,8 @@ const ProductList = () => {
                         <CIcon icon={cilTextShapes} className="me-2" />
                         Edit
                       </CButton>
-                      <CButton
-                        color='danger'
-                        active={true}
-                        className='me-2 mb-2'
-                      >
-                        <CIcon icon={cilDelete} className="me-2" />
-                        Delete
-                      </CButton>
+                      </a>
+                      {VerticallyCentered()}
                     </CTableDataCell>
                   </CTableRow>
                   <CTableRow>
@@ -132,6 +165,7 @@ const ProductList = () => {
                         <CAvatar src={avatar8} size="md" />
                     </CTableDataCell>
                     <CTableDataCell style={{width:'300px'}}>
+                    <a href='/product/view'>
                       <CButton
                           color='success'
                           active={true}
@@ -140,6 +174,8 @@ const ProductList = () => {
                           <CIcon icon={cilLowVision} className="me-2" />
                           View
                         </CButton>
+                        </a>
+                        <a href='/product/edit'>
                         <CButton
                         color='primary'
                         active={true}
@@ -148,14 +184,8 @@ const ProductList = () => {
                         <CIcon icon={cilTextShapes} className="me-2" />
                         Edit
                       </CButton>
-                      <CButton
-                        color='danger'
-                        active={true}
-                        className='me-2 mb-2'
-                      >
-                        <CIcon icon={cilDelete} className="me-2" />
-                        Delete
-                      </CButton>
+                      </a>
+                      {VerticallyCentered()}
                     </CTableDataCell>
                   </CTableRow>
                   <CTableRow>
@@ -168,6 +198,7 @@ const ProductList = () => {
                         <CAvatar src={avatar8} size="md" />
                     </CTableDataCell>
                     <CTableDataCell style={{width:'300px'}}>
+                    <a href='/product/view'>
                       <CButton
                           color='success'
                           active={true}
@@ -176,6 +207,8 @@ const ProductList = () => {
                           <CIcon icon={cilLowVision} className="me-2" />
                           View
                         </CButton>
+                        </a>
+                        <a href='/product/edit'>
                         <CButton
                         color='primary'
                         active={true}
@@ -184,14 +217,8 @@ const ProductList = () => {
                         <CIcon icon={cilTextShapes} className="me-2" />
                         Edit
                       </CButton>
-                      <CButton
-                        color='danger'
-                        active={true}
-                        className='me-2 mb-2'
-                      >
-                        <CIcon icon={cilDelete} className="me-2" />
-                        Delete
-                      </CButton>
+                      </a>
+                      {VerticallyCentered()}
                     </CTableDataCell>
                   </CTableRow>
                 </CTableBody>
