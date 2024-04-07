@@ -11,14 +11,9 @@ import {
   CFormFeedback,
   CFormLabel,
   CInputGroup,
-  CInputGroupText,
   CFormTextarea,
-  CFormSelect,
 
 } from '@coreui/react'
-import avatar8 from './../../assets/images/avatars/8.jpg'
-import { cilLowVision,cilTextShapes,cilDelete } from '@coreui/icons'
-import CIcon from '@coreui/icons-react'
 import Select from 'react-select';
 
 const ProductEdit = () => {

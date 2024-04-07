@@ -19,7 +19,6 @@ import {
   CPaginationItem,
   CPagination
 } from '@coreui/react'
-import { cilLowVision,cilTextShapes,cilDelete, cilStar } from '@coreui/icons'
 import ReactImg from 'src/assets/images/react.jpg'
 import Star from './Star'
 import FilledStar from './FilledStar'

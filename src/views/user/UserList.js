@@ -48,7 +48,7 @@ const VerticallyCentered = () => {
           <CModalTitle>Are you sure ?</CModalTitle>
         </CModalHeader>
         <CModalBody>
-          Are you sure to delete this product?
+          Are you sure to delete this user?
         </CModalBody>
         <CModalFooter>
           <CButton color="secondary" onClick={() => setVisible(false)}>
@@ -62,18 +62,18 @@ const VerticallyCentered = () => {
 }
 
 
-const ProductList = () => {
+const UserList = () => {
 
   return (
     <CRow>
       <CCol xs={12}>
       <CCard className="mb-4">
           <CCardHeader>
-            <strong>Products List</strong>
+            <strong>User List</strong>
           </CCardHeader>
           <CCardBody>
             <p className="text-body-secondary small">
-              View all products here
+              View all users here
             </p>
             <div style={{overflowX:'auto'}}>
             <CTable>
@@ -81,11 +81,8 @@ const ProductList = () => {
                   <CTableRow>
                     <CTableHeaderCell scope="col">#</CTableHeaderCell>
                     <CTableHeaderCell scope="col">Name</CTableHeaderCell>
-                    <CTableHeaderCell scope="col">Price By ML</CTableHeaderCell>
-                    <CTableHeaderCell scope="col">Rating</CTableHeaderCell>
-                    <CTableHeaderCell scope="col">Offer Percentage
-                    </CTableHeaderCell>
-                    <CTableHeaderCell scope="col">Main Image</CTableHeaderCell>
+                    <CTableHeaderCell scope="col">Phone</CTableHeaderCell>
+                    <CTableHeaderCell scope="col">Email</CTableHeaderCell>
                     <CTableHeaderCell scope="col">Action</CTableHeaderCell>
                   </CTableRow>
                 </CTableHead>
@@ -93,14 +90,10 @@ const ProductList = () => {
                   <CTableRow>
                     <CTableHeaderCell scope="row">1</CTableHeaderCell>
                     <CTableDataCell>Mark</CTableDataCell>
-                    <CTableDataCell>20</CTableDataCell>
-                    <CTableDataCell>3</CTableDataCell>
-                    <CTableDataCell>45</CTableDataCell>
-                    <CTableDataCell>
-                        <CAvatar src={avatar8} size="md" />
-                    </CTableDataCell>
+                    <CTableDataCell>20222133</CTableDataCell>
+                    <CTableDataCell>ahhh@ads.ss</CTableDataCell>
                     <CTableDataCell style={{width:'300px'}}>
-                    <Link to="/product/view">
+                    <Link to="/user/view">
 
                       <CButton
                           color='success'
@@ -111,7 +104,7 @@ const ProductList = () => {
                           View
                         </CButton>
                         </Link>
-                        <Link to='/product/edit'>
+                        <Link to='/user/edit'>
                         <CButton
                           color='primary'
                           active={true}
@@ -128,14 +121,10 @@ const ProductList = () => {
                   <CTableRow>
                     <CTableHeaderCell scope="row">1</CTableHeaderCell>
                     <CTableDataCell>Mark</CTableDataCell>
-                    <CTableDataCell>20</CTableDataCell>
-                    <CTableDataCell>3</CTableDataCell>
-                    <CTableDataCell>45</CTableDataCell>
-                    <CTableDataCell>
-                        <CAvatar src={avatar8} size="md" />
-                    </CTableDataCell>
+                    <CTableDataCell>20222133</CTableDataCell>
+                    <CTableDataCell>ahhh@ads.ss</CTableDataCell>
                     <CTableDataCell style={{width:'300px'}}>
-                    <Link to='/product/view'>
+                    <Link to="/user/view">
 
                       <CButton
                           color='success'
@@ -146,30 +135,28 @@ const ProductList = () => {
                           View
                         </CButton>
                         </Link>
-                        <Link to='/product/edit'>
+                        <Link to='/user/edit'>
                         <CButton
-                        color='primary'
-                        active={true}
-                        className='me-2 mb-2'
-                      >
-                        <CIcon icon={cilTextShapes} className="me-2" />
-                        Edit
-                      </CButton>
-                      </Link>
-                      {VerticallyCentered()}
+                          color='primary'
+                          active={true}
+                          className='me-2 mb-2'
+                        >
+                          <CIcon icon={cilTextShapes} className="me-2" />
+                          Edit
+                        </CButton>
+                        </Link>
+                        {VerticallyCentered()}
                     </CTableDataCell>
+
                   </CTableRow>
                   <CTableRow>
                     <CTableHeaderCell scope="row">1</CTableHeaderCell>
                     <CTableDataCell>Mark</CTableDataCell>
-                    <CTableDataCell>20</CTableDataCell>
-                    <CTableDataCell>3</CTableDataCell>
-                    <CTableDataCell>45</CTableDataCell>
-                    <CTableDataCell>
-                        <CAvatar src={avatar8} size="md" />
-                    </CTableDataCell>
+                    <CTableDataCell>20222133</CTableDataCell>
+                    <CTableDataCell>ahhh@ads.ss</CTableDataCell>
                     <CTableDataCell style={{width:'300px'}}>
-                    <Link to='/product/view'>
+                    <Link to="/user/view">
+
                       <CButton
                           color='success'
                           active={true}
@@ -179,30 +166,28 @@ const ProductList = () => {
                           View
                         </CButton>
                         </Link>
-                        <Link to='/product/edit'>
+                        <Link to='/user/edit'>
                         <CButton
-                        color='primary'
-                        active={true}
-                        className='me-2 mb-2'
-                      >
-                        <CIcon icon={cilTextShapes} className="me-2" />
-                        Edit
-                      </CButton>
-                      </Link>
-                      {VerticallyCentered()}
+                          color='primary'
+                          active={true}
+                          className='me-2 mb-2'
+                        >
+                          <CIcon icon={cilTextShapes} className="me-2" />
+                          Edit
+                        </CButton>
+                        </Link>
+                        {VerticallyCentered()}
                     </CTableDataCell>
+
                   </CTableRow>
                   <CTableRow>
                     <CTableHeaderCell scope="row">1</CTableHeaderCell>
                     <CTableDataCell>Mark</CTableDataCell>
-                    <CTableDataCell>20</CTableDataCell>
-                    <CTableDataCell>3</CTableDataCell>
-                    <CTableDataCell>45</CTableDataCell>
-                    <CTableDataCell>
-                        <CAvatar src={avatar8} size="md" />
-                    </CTableDataCell>
+                    <CTableDataCell>20222133</CTableDataCell>
+                    <CTableDataCell>ahhh@ads.ss</CTableDataCell>
                     <CTableDataCell style={{width:'300px'}}>
-                    <Link to='/product/view'>
+                    <Link to="/user/view">
+
                       <CButton
                           color='success'
                           active={true}
@@ -212,28 +197,92 @@ const ProductList = () => {
                           View
                         </CButton>
                         </Link>
-                        <Link to='/product/edit'>
+                        <Link to='/user/edit'>
                         <CButton
-                        color='primary'
-                        active={true}
-                        className='me-2 mb-2'
-                      >
-                        <CIcon icon={cilTextShapes} className="me-2" />
-                        Edit
-                      </CButton>
-                      </Link>
-                      {VerticallyCentered()}
+                          color='primary'
+                          active={true}
+                          className='me-2 mb-2'
+                        >
+                          <CIcon icon={cilTextShapes} className="me-2" />
+                          Edit
+                        </CButton>
+                        </Link>
+                        {VerticallyCentered()}
                     </CTableDataCell>
+
                   </CTableRow>
+                  <CTableRow>
+                    <CTableHeaderCell scope="row">1</CTableHeaderCell>
+                    <CTableDataCell>Mark</CTableDataCell>
+                    <CTableDataCell>20222133</CTableDataCell>
+                    <CTableDataCell>ahhh@ads.ss</CTableDataCell>
+                    <CTableDataCell style={{width:'300px'}}>
+                    <Link to="/user/view">
+
+                      <CButton
+                          color='success'
+                          active={true}
+                          className='me-2 mb-2'
+                        >
+                          <CIcon icon={cilLowVision} className="me-2" />
+                          View
+                        </CButton>
+                        </Link>
+                        <Link to='/user/edit'>
+                        <CButton
+                          color='primary'
+                          active={true}
+                          className='me-2 mb-2'
+                        >
+                          <CIcon icon={cilTextShapes} className="me-2" />
+                          Edit
+                        </CButton>
+                        </Link>
+                        {VerticallyCentered()}
+                    </CTableDataCell>
+
+                  </CTableRow>
+                  <CTableRow>
+                    <CTableHeaderCell scope="row">1</CTableHeaderCell>
+                    <CTableDataCell>Mark</CTableDataCell>
+                    <CTableDataCell>20222133</CTableDataCell>
+                    <CTableDataCell>ahhh@ads.ss</CTableDataCell>
+                    <CTableDataCell style={{width:'300px'}}>
+                    <Link to="/user/view">
+
+                      <CButton
+                          color='success'
+                          active={true}
+                          className='me-2 mb-2'
+                        >
+                          <CIcon icon={cilLowVision} className="me-2" />
+                          View
+                        </CButton>
+                        </Link>
+                        <Link to='/user/edit'>
+                        <CButton
+                          color='primary'
+                          active={true}
+                          className='me-2 mb-2'
+                        >
+                          <CIcon icon={cilTextShapes} className="me-2" />
+                          Edit
+                        </CButton>
+                        </Link>
+                        {VerticallyCentered()}
+                    </CTableDataCell>
+
+                  </CTableRow>
+
                 </CTableBody>
               </CTable>
               <CPagination className="justify-content-center" aria-label="Page navigation example">
-                  <CPaginationItem disabled>Previous</CPaginationItem>
-                  <CPaginationItem>1</CPaginationItem>
-                  <CPaginationItem>2</CPaginationItem>
-                  <CPaginationItem>3</CPaginationItem>
-                  <CPaginationItem>Next</CPaginationItem>
-                </CPagination>
+                <CPaginationItem disabled>Previous</CPaginationItem>
+                <CPaginationItem>1</CPaginationItem>
+                <CPaginationItem>2</CPaginationItem>
+                <CPaginationItem>3</CPaginationItem>
+                <CPaginationItem>Next</CPaginationItem>
+              </CPagination>
             </div>
           </CCardBody>
         </CCard>
@@ -243,4 +292,4 @@ const ProductList = () => {
   )
 }
 
-export default ProductList
+export default UserList
