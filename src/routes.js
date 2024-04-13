@@ -59,6 +59,10 @@ const ProductView = React.lazy(()=> import('./views/product/ProductView'))
 const UserList = React.lazy(()=> import('./views/user/UserList'))
 const UserEdit = React.lazy(()=> import('./views/user/UserEdit'))
 const UserView = React.lazy(()=> import('./views/user/UserView'))
+const OrderList = React.lazy(()=> import('./views/order/OrderList'))
+const OrderView = React.lazy(()=> import('./views/order/OrderView'))
+const Invoice = React.lazy(()=> import('./views/order/Invoice'))
+
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -114,6 +118,9 @@ const routes = [
   { path: '/user/list', name: 'UserList', element: UserList },
   { path: '/user/edit', name: 'UserEdit', element: UserEdit },
   { path: '/user/view', name: 'UserView', element: UserView },
+  { path: '/order', name: 'Orders', element: OrderList },
+  { path: '/order/view', name: 'OrderView', element: OrderView },
+  { path: '/order/invoice', name: 'Invoice', element: Invoice },
 
 ]
 
