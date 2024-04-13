@@ -17,12 +17,12 @@ const DocsCallout = (props) => {
             plural ? 'have' : 'has'
           } been created as a native React.js version
       of Bootstrap ${name}. ${name} ${plural ? 'are' : 'is'} delivered with some new features,
-      variants, and unique design that matches CoreUI Design System requirements.`}
+      variants, and unique design that matches Alweena Design System requirements.`}
       <br />
       <br />
       For more information please visit our official{' '}
       <CLink href={_href} target="_blank">
-        documentation of CoreUI Components Library for React.js
+        documentation of Alweena Components Library for React.js
       </CLink>
       .
     </CCallout>
