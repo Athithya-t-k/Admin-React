@@ -1,86 +1,132 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import {
-  CButton,
-  CCard,
-  CCardBody,
-  CCardGroup,
-  CCol,
-  CContainer,
-  CForm,
-  CFormInput,
-  CInputGroup,
-  CInputGroupText,
-  CRow,
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-import { cilLockLocked, cilUser } from '@coreui/icons'
+import React, { Fragment, useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { CButton, CCard, CCardBody, CCardGroup, CCol, CContainer, CForm, CFormInput, CInputGroup, CInputGroupText, CRow } from '@coreui/react';
+import CIcon from '@coreui/icons-react';
+import { cilLockLocked, cilUser } from '@coreui/icons';
+import AuthController from '../../controller/AuthController';
+import cogoToast from 'cogo-toast';
+import AuthManagement from '../../utilities/AuthManagement';
 
 const Login = () => {
-  return (
-    <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
-      <CContainer>
-        <CRow className="justify-content-center">
-          <CCol md={8}>
-            <CCardGroup>
-              <CCard className="p-4">
-                <CCardBody>
-                  <CForm>
-                    <h1>Login</h1>
-                    <p className="text-body-secondary">Sign In to your account</p>
-                    <CInputGroup className="mb-3">
-                      <CInputGroupText>
-                        <CIcon icon={cilUser} />
-                      </CInputGroupText>
-                      <CFormInput placeholder="Username" autoComplete="username" />
-                    </CInputGroup>
-                    <CInputGroup className="mb-4">
-                      <CInputGroupText>
-                        <CIcon icon={cilLockLocked} />
-                      </CInputGroupText>
-                      <CFormInput
-                        type="password"
-                        placeholder="Password"
-                        autoComplete="current-password"
-                      />
-                    </CInputGroup>
-                    <CRow>
-                      <CCol xs={6}>
-                        <CButton color="primary" className="px-4">
-                          Login
-                        </CButton>
-                      </CCol>
-                      <CCol xs={6} className="text-right">
-                        <CButton color="link" className="px-0">
-                          Forgot password?
-                        </CButton>
-                      </CCol>
-                    </CRow>
-                  </CForm>
-                </CCardBody>
-              </CCard>
-              <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}>
-                <CCardBody className="text-center">
-                  <div>
-                    <h2>Sign up</h2>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                      tempor incididunt ut labore et dolore magna aliqua.
-                    </p>
-                    <Link to="/register">
-                      <CButton color="primary" className="mt-3" active tabIndex={-1}>
-                        Register Now!
-                      </CButton>
-                    </Link>
-                  </div>
-                </CCardBody>
-              </CCard>
-            </CCardGroup>
-          </CCol>
-        </CRow>
-      </CContainer>
-    </div>
-  )
-}
+  const navigate = useNavigate();
 
-export default Login
+  useEffect(() => {
+    async function retrieveToken() {
+      const token = await AuthManagement.getToken();
+      if (token) {
+        let tokenVerify = await AuthController.tokenVerify({ token: token });
+        if (tokenVerify.success) {
+          navigate('/my-account', { state: { state: tokenVerify.user } });
+        }
+      }
+    }
+    retrieveToken();
+  }, [navigate]);
+
+  const [loginData, setLoginData] = useState({
+    username: '',
+    password: ''
+  });
+
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const loginUser = await AuthController.login(loginData);
+      if (loginUser.success) {
+        await AuthManagement.setToken(loginUser.data.token);
+        cogoToast.success('Login successful', { position: 'bottom-left' });
+        navigate('/my-account', { state: { data: loginUser.user, token: loginUser.token } });
+      } else {
+        cogoToast.error('Invalid username or password', { position: 'bottom-left' });
+      }
+    } catch (error) {
+      console.log(error, '<=ax err');
+    }
+  };
+
+  const handleInputChange = (e) => {
+    setLoginData({
+      ...loginData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  return (
+    <Fragment>
+      <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
+        <CContainer>
+          <CRow className="justify-content-center">
+            <CCol md={8}>
+              <CCardGroup>
+                <CCard className="p-4">
+                  <CCardBody>
+                    <CForm onSubmit={handleLoginSubmit}>
+                      <h1>Login</h1>
+                      <p className="text-body-secondary">Sign In to your account</p>
+                      <CInputGroup className="mb-3">
+                        <CInputGroupText>
+                          <CIcon icon={cilUser} />
+                        </CInputGroupText>
+                        <CFormInput
+                          type="text"
+                          name="username"
+                          placeholder="Username"
+                          autoComplete="username"
+                          value={loginData.username}
+                          onChange={handleInputChange}
+                        />
+                      </CInputGroup>
+                      <CInputGroup className="mb-4">
+                        <CInputGroupText>
+                          <CIcon icon={cilLockLocked} />
+                        </CInputGroupText>
+                        <CFormInput
+                          type="password"
+                          name="password"
+                          placeholder="Password"
+                          autoComplete="current-password"
+                          value={loginData.password}
+                          onChange={handleInputChange}
+                        />
+                      </CInputGroup>
+                      <CRow>
+                        <CCol xs={6}>
+                          <CButton type="submit" color="primary" className="px-4">
+                            Login
+                          </CButton>
+                        </CCol>
+                        <CCol xs={6} className="text-right">
+                          <CButton color="link" className="px-0">
+                            Forgot password?
+                          </CButton>
+                        </CCol>
+                      </CRow>
+                    </CForm>
+                  </CCardBody>
+                </CCard>
+                <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}>
+                  <CCardBody className="text-center">
+                    <div>
+                      <h2>Sign up</h2>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua.
+                      </p>
+                      <Link to="/register">
+                        <CButton color="primary" className="mt-3" active tabIndex={-1}>
+                          Register Now!
+                        </CButton>
+                      </Link>
+                    </div>
+                  </CCardBody>
+                </CCard>
+              </CCardGroup>
+            </CCol>
+          </CRow>
+        </CContainer>
+      </div>
+    </Fragment>
+  );
+};
+
+export default Login;
