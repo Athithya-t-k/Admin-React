@@ -53,6 +53,7 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 // Profile
 
 const Profile = React.lazy(()=> import('./views/profile/Profile'))
+const ProductCreate = React.lazy(()=> import('./views/product/ProductCreate'))
 const ProductList = React.lazy(()=> import('./views/product/ProductList'))
 const ProductEdit = React.lazy(()=> import('./views/product/ProductEdit'))
 const ProductView = React.lazy(()=> import('./views/product/ProductView'))
@@ -113,6 +114,7 @@ const routes = [
   { path: '/product/list', name: 'ProductList', element: ProductList },
   { path: '/product/edit', name: 'ProductEdit', element: ProductEdit },
   { path: '/product', name: 'Product', element: ProductList },
+  {path : '/product/create', name :'ProductCreate', element:ProductCreate},
   { path: '/product/view', name: 'ProductView', element: ProductView },
   { path: '/user', name: 'User', element: UserList },
   { path: '/user/list', name: 'UserList', element: UserList },

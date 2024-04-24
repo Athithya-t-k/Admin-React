@@ -1,33 +1,99 @@
-import React, { useState } from 'react'
-import {
-  CButton,
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CCol,
-  CRow,
-  CCardImage,
-  CCardText,
-  CCardTitle,
-  CCarouselItem,
-  CCarousel,
-  CCarouselCaption,
-  CAccordion,
-  CAccordionBody,
-  CAccordionItem,
-  CAccordionHeader,
-  CPaginationItem,
-  CPagination
-} from '@coreui/react'
-import ReactImg from 'src/assets/images/react.jpg'
-import Star from './Star'
-import FilledStar from './FilledStar'
-
-import AngularImg from 'src/assets/images/angular.jpg'
-import VueImg from 'src/assets/images/vue.jpg'
+import React, { Fragment, useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { CButton, CCard, CCardBody, CCardHeader, CCol, CRow, CCardImage, CCardText, CCardTitle, CCarouselItem, CCarousel, CCarouselCaption, CAccordion, CAccordionBody, CAccordionItem, CAccordionHeader, CPaginationItem, CPagination } from '@coreui/react';
+import ReactImg from 'src/assets/images/react.jpg';
+import Star from './Star';
+import FilledStar from './FilledStar';
+import AngularImg from 'src/assets/images/angular.jpg';
+import VueImg from 'src/assets/images/vue.jpg';
+import cogoToast from 'cogo-toast';
+import ProductController from '../../controller/ProductController';
+import ProductManagement from '../../utilities/ProductManagement';
 
 const ProductView = () => {
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    async function retrieveToken() {
+      const token = await ProductManagement.getToken();
+      if (token) {
+        let tokenVerify = await ProductController.tokenVerify({ token: token });
+        if (tokenVerify.success) {
+          navigate('/product/list', { state: { state: tokenVerify.user } });
+        }
+      }
+    }
+    retrieveToken();
+  }, [navigate]);
+
+  const [viewProductData, setViewProductData] = useState({
+    name: "",
+    tag_line: "",
+    description: "",
+    price_by_ml: "",
+    category_ids: "",
+    related_item_ids: "", 
+    tags: "",
+    fragrance: "",
+    bottle_color: "",
+    items_in_the_box: "",
+    offer_deduction_percentage: "",
+    offers: "",
+  });
+
+  const [viewProductErrors, setViewProductErrors] = useState({
+    name: false,
+    tag_line: false,
+    description: false,
+    price_by_ml: false,
+    category_ids: false,
+    related_item_ids: false,
+    tags: false,
+    fragrance: false,
+    bottle_color: false,
+    items_in_the_box: false,
+    offer_deduction_percentage: false,
+    offers: false,
+  });
+
+  useEffect(() => {
+    async function fetchProductData() {
+      try {
+        const productData = await ProductController.listProducts();
+        setViewProductData(productData);
+      } catch (error) {
+        console.error("Error fetching product data:", error);
+        setViewProductErrors({ ...viewProductErrors, productData: true });
+      }
+    }
+    fetchProductData();
+  }, []);
+
+  const [relatedProducts, setRelatedProducts] = useState([]);
+
+  useEffect(() => {
+    async function fetchRelatedProducts() {
+      try {
+        if (viewProductData && viewProductData.related_item_ids) {
+          const relatedProductIds = viewProductData.related_item_ids.split(',');
+          if (relatedProductIds.length > 0) {
+            const fetchedProducts = await Promise.all(
+              relatedProductIds.map(async (id) => {
+                const relatedProductData = await ProductController.viewProduct(id);
+                return relatedProductData;
+              })
+            );
+            setRelatedProducts(fetchedProducts);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching related products:", error);
+      }
+    }
+    fetchRelatedProducts();
+  }, [viewProductData]);
+
+  
 
   return (
     <CRow>

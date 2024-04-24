@@ -75,6 +75,17 @@ const ProductList = () => {
             <p className="text-body-secondary small">
               View all products here
             </p>
+            <Link to='/product/create'>
+
+            <CButton
+                          color='primary'
+                          active={true}
+                          className='me-2 mb-2'
+                        >
+                          <CIcon icon={cilLowVision} className="me-2" />
+                          AddProduct
+                     </CButton>
+                     </Link>
             <div style={{overflowX:'auto'}}>
             <CTable>
                 <CTableHead>
