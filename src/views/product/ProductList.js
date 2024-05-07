@@ -72,20 +72,21 @@ const ProductList = () => {
             <strong>Products List</strong>
           </CCardHeader>
           <CCardBody>
-            <p className="text-body-secondary small">
-              View all products here
-            </p>
-            <Link to='/product/create'>
-
-            <CButton
-                          color='primary'
-                          active={true}
-                          className='me-2 mb-2'
-                        >
-                          <CIcon icon={cilLowVision} className="me-2" />
-                          AddProduct
-                     </CButton>
-                     </Link>
+            <div style={{display: 'flex',alignItems:'center'}}>
+              <p className="text-body-secondary small" style={{marginRight:'auto'}}>
+                View all products here
+              </p>
+              <Link to='/product/create' style={{marginLeft:'auto'}}>
+                <CButton
+                    color='primary'
+                    active={true}
+                    className='me-2 mb-2'
+                  >
+                    <CIcon icon={cilLowVision} className="me-2" />
+                    AddProduct
+                </CButton>
+              </Link>
+            </div>
             <div style={{overflowX:'auto'}}>
             <CTable>
                 <CTableHead>
