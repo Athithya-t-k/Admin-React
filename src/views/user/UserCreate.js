@@ -74,6 +74,16 @@ const UserCreate = () => {
                       <CFormInput type="text" id="validationCustom02" defaultValue="" required />
                       <CFormFeedback valid>Looks good!</CFormFeedback>
                     </CCol>
+                    <CCol md={6}>
+                      <CFormLabel htmlFor="validationCustom02">Password</CFormLabel>
+                      <CFormInput type="password" id="validationCustom03" defaultValue="" required />
+                      <CFormFeedback valid>Looks good!</CFormFeedback>
+                    </CCol>
+                    <CCol md={6}>
+                      <CFormLabel htmlFor="validationCustom02">Confirm Password</CFormLabel>
+                      <CFormInput type="password" id="validationCustom04" defaultValue="" required />
+                      <CFormFeedback valid>Looks good!</CFormFeedback>
+                    </CCol>
 
                     <CCol xs={12}>
                       <CButton color="primary" type="submit">
