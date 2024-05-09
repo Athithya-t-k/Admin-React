@@ -26,7 +26,7 @@ import {
 import { Link } from 'react-router-dom'
 
 import avatar8 from './../../assets/images/avatars/8.jpg'
-import { cilLowVision,cilTextShapes,cilDelete } from '@coreui/icons'
+import { cilLowVision,cilTextShapes,cilDelete,cilPlus } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 
 const VerticallyCentered = () => {
@@ -72,9 +72,22 @@ const UserList = () => {
             <strong>User List</strong>
           </CCardHeader>
           <CCardBody>
-            <p className="text-body-secondary small">
-              View all users here
-            </p>
+            <div style={{display: 'flex',alignItems:'center'}}>
+
+              <p className="text-body-secondary small">
+                View all users here
+              </p>
+              <Link to='/user/create' style={{marginLeft:'auto'}}>
+                <CButton
+                    color='primary'
+                    active={true}
+                    className='me-2 mb-2'
+                  >
+                    <CIcon icon={cilPlus} className="me-2" />
+                    Add User
+                </CButton>
+              </Link>
+            </div>
             <div style={{overflowX:'auto'}}>
             <CTable>
                 <CTableHead>

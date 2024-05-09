@@ -59,6 +59,7 @@ const ProductEdit = React.lazy(()=> import('./views/product/ProductEdit'))
 const ProductView = React.lazy(()=> import('./views/product/ProductView'))
 const UserList = React.lazy(()=> import('./views/user/UserList'))
 const UserEdit = React.lazy(()=> import('./views/user/UserEdit'))
+const UserCreate = React.lazy(() => import('./views/user/UserCreate'))
 const UserView = React.lazy(()=> import('./views/user/UserView'))
 const OrderList = React.lazy(()=> import('./views/order/OrderList'))
 const OrderView = React.lazy(()=> import('./views/order/OrderView'))
@@ -119,6 +120,7 @@ const routes = [
   { path: '/user', name: 'User', element: UserList },
   { path: '/user/list', name: 'UserList', element: UserList },
   { path: '/user/edit', name: 'UserEdit', element: UserEdit },
+  { path: '/user/create', name: 'UserCreate', element: UserCreate },
   { path: '/user/view', name: 'UserView', element: UserView },
   { path: '/order', name: 'Orders', element: OrderList },
   { path: '/order/view', name: 'OrderView', element: OrderView },
