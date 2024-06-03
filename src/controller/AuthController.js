@@ -15,6 +15,20 @@ const AuthController = {
 
         }
     },
+    tokenVerifier: async (data) => {
+      try {
+      const response = await axios.get(`${API_BASE_URL}/admin/verify-token`, {
+        headers: {
+          Authorization: data.token
+        },
+      });
+      return response.data;
+      } catch (error) {
+          console.log('axios error=>',error.response)
+          return error.response ?? error;
+
+      }
+  },
 };
 
 export default AuthController;

@@ -119,7 +119,7 @@ const routes = [
   { path: '/product/view', name: 'ProductView', element: ProductView },
   { path: '/user', name: 'User', element: UserList },
   { path: '/user/list', name: 'UserList', element: UserList },
-  { path: '/user/edit', name: 'UserEdit', element: UserEdit },
+  { path: '/user/edit/:id', name: 'UserEdit', element: UserEdit },
   { path: '/user/create', name: 'UserCreate', element: UserCreate },
   { path: '/user/view', name: 'UserView', element: UserView },
   { path: '/order', name: 'Orders', element: OrderList },

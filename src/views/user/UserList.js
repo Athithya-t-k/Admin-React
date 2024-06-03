@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   CButton,
   CCard,
@@ -23,73 +23,69 @@ import {
   CDropdownItem,
   CNavLink
 } from '@coreui/react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import avatar8 from './../../assets/images/avatars/8.jpg'
-import { cilLowVision,cilTextShapes,cilDelete,cilPlus } from '@coreui/icons'
+import { cilLowVision, cilTextShapes, cilDelete, cilPlus } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
-
-const VerticallyCentered = () => {
-  const [visible, setVisible] = useState(false)
-  return (
-    <>
-
-      <CButton
-        color='danger'
-        active={true}
-        className='me-2 mb-2'
-        onClick={() => setVisible(!visible)}
-      >
-        <CIcon icon={cilDelete} className="me-2" />
-        Delete
-      </CButton>
-      <CModal alignment="center" visible={visible} onClose={() => setVisible(false)}>
-        <CModalHeader>
-          <CModalTitle>Are you sure ?</CModalTitle>
-        </CModalHeader>
-        <CModalBody>
-          Are you sure to delete this user?
-        </CModalBody>
-        <CModalFooter>
-          <CButton color="secondary" onClick={() => setVisible(false)}>
-            Close
-          </CButton>
-          <CButton color="primary">Save changes</CButton>
-        </CModalFooter>
-      </CModal>
-    </>
-  )
-}
-
+import AuthController from '../../controller/AuthController'
+import AuthManagement from '../../utilities/AuthManagement'
+import cogoToast from 'cogo-toast';
+import UserController from '../../controller/UserController'
+import UserDeleteConfirmationModal from './modals/UserDeleteConfirmationModal'
 
 const UserList = () => {
+  const navigate = useNavigate();
+  const [userList, setUserList] = useState([])
+
+  useEffect(() => {
+    const retrieveToken = async () => {
+      const token = await AuthManagement.getToken();
+      if (token) {
+        let getUsers = await UserController.getUsers({ token: token });
+        console.log(getUsers)
+        if (getUsers.success) {
+          setUserList(getUsers.data)
+          navigate('/user', { state: { state: getUsers.user } });
+        } else {
+          cogoToast.error('Invalid token, please login again', { position: 'bottom-left' });
+          navigate('/login');
+        }
+      } else {
+        cogoToast.error('You need to login for accessing this page', { position: 'bottom-left' });
+        navigate('/login');
+      }
+    }
+    retrieveToken();
+  }, [navigate]);
+
+
 
   return (
     <CRow>
       <CCol xs={12}>
-      <CCard className="mb-4">
+        <CCard className="mb-4">
           <CCardHeader>
             <strong>User List</strong>
           </CCardHeader>
           <CCardBody>
-            <div style={{display: 'flex',alignItems:'center'}}>
-
+            <div style={{ display: 'flex', alignItems: 'center' }}>
               <p className="text-body-secondary small">
                 View all users here
               </p>
-              <Link to='/user/create' style={{marginLeft:'auto'}}>
+              <Link to='/user/create' style={{ marginLeft: 'auto' }}>
                 <CButton
-                    color='primary'
-                    active={true}
-                    className='me-2 mb-2'
-                  >
-                    <CIcon icon={cilPlus} className="me-2" />
-                    Add User
+                  color='primary'
+                  active={true}
+                  className='me-2 mb-2'
+                >
+                  <CIcon icon={cilPlus} className="me-2" />
+                  Add User
                 </CButton>
               </Link>
             </div>
-            <div style={{overflowX:'auto'}}>
-            <CTable>
+            <div style={{ overflowX: 'auto' }}>
+              <CTable>
                 <CTableHead>
                   <CTableRow>
                     <CTableHeaderCell scope="col">#</CTableHeaderCell>
@@ -100,193 +96,30 @@ const UserList = () => {
                   </CTableRow>
                 </CTableHead>
                 <CTableBody>
-                  <CTableRow>
-                    <CTableHeaderCell scope="row">1</CTableHeaderCell>
-                    <CTableDataCell>Mark</CTableDataCell>
-                    <CTableDataCell>20222133</CTableDataCell>
-                    <CTableDataCell>ahhh@ads.ss</CTableDataCell>
-                    <CTableDataCell style={{width:'300px'}}>
-                    <Link to="/user/view">
+                  {userList.map((user, index) => (
+                    <CTableRow key={index}>
+                      <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
+                      <CTableDataCell>{user.firstName} {user.lastName}</CTableDataCell>
+                      <CTableDataCell>{user.mobileNumber}</CTableDataCell>
+                      <CTableDataCell>{user.email}</CTableDataCell>
+                      <CTableDataCell style={{ width: '300px' }}>
+                        <Link to={`/user/view/${user._id}`}>
 
-                      <CButton
-                          color='success'
-                          active={true}
-                          className='me-2 mb-2'
-                        >
-                          <CIcon icon={cilLowVision} className="me-2" />
-                          View
-                        </CButton>
                         </Link>
-                        <Link to='/user/edit'>
-                        <CButton
-                          color='primary'
-                          active={true}
-                          className='me-2 mb-2'
-                        >
-                          <CIcon icon={cilTextShapes} className="me-2" />
-                          Edit
-                        </CButton>
+                        <Link to={`/user/edit/${user._id}`}>
+                          <CButton
+                            color='primary'
+                            active={true}
+                            className='me-2 mb-2'
+                          >
+                            <CIcon icon={cilTextShapes} className="me-2" />
+                            Edit
+                          </CButton>
                         </Link>
-                        {VerticallyCentered()}
-                    </CTableDataCell>
-
-                  </CTableRow>
-                  <CTableRow>
-                    <CTableHeaderCell scope="row">1</CTableHeaderCell>
-                    <CTableDataCell>Mark</CTableDataCell>
-                    <CTableDataCell>20222133</CTableDataCell>
-                    <CTableDataCell>ahhh@ads.ss</CTableDataCell>
-                    <CTableDataCell style={{width:'300px'}}>
-                    <Link to="/user/view">
-
-                      <CButton
-                          color='success'
-                          active={true}
-                          className='me-2 mb-2'
-                        >
-                          <CIcon icon={cilLowVision} className="me-2" />
-                          View
-                        </CButton>
-                        </Link>
-                        <Link to='/user/edit'>
-                        <CButton
-                          color='primary'
-                          active={true}
-                          className='me-2 mb-2'
-                        >
-                          <CIcon icon={cilTextShapes} className="me-2" />
-                          Edit
-                        </CButton>
-                        </Link>
-                        {VerticallyCentered()}
-                    </CTableDataCell>
-
-                  </CTableRow>
-                  <CTableRow>
-                    <CTableHeaderCell scope="row">1</CTableHeaderCell>
-                    <CTableDataCell>Mark</CTableDataCell>
-                    <CTableDataCell>20222133</CTableDataCell>
-                    <CTableDataCell>ahhh@ads.ss</CTableDataCell>
-                    <CTableDataCell style={{width:'300px'}}>
-                    <Link to="/user/view">
-
-                      <CButton
-                          color='success'
-                          active={true}
-                          className='me-2 mb-2'
-                        >
-                          <CIcon icon={cilLowVision} className="me-2" />
-                          View
-                        </CButton>
-                        </Link>
-                        <Link to='/user/edit'>
-                        <CButton
-                          color='primary'
-                          active={true}
-                          className='me-2 mb-2'
-                        >
-                          <CIcon icon={cilTextShapes} className="me-2" />
-                          Edit
-                        </CButton>
-                        </Link>
-                        {VerticallyCentered()}
-                    </CTableDataCell>
-
-                  </CTableRow>
-                  <CTableRow>
-                    <CTableHeaderCell scope="row">1</CTableHeaderCell>
-                    <CTableDataCell>Mark</CTableDataCell>
-                    <CTableDataCell>20222133</CTableDataCell>
-                    <CTableDataCell>ahhh@ads.ss</CTableDataCell>
-                    <CTableDataCell style={{width:'300px'}}>
-                    <Link to="/user/view">
-
-                      <CButton
-                          color='success'
-                          active={true}
-                          className='me-2 mb-2'
-                        >
-                          <CIcon icon={cilLowVision} className="me-2" />
-                          View
-                        </CButton>
-                        </Link>
-                        <Link to='/user/edit'>
-                        <CButton
-                          color='primary'
-                          active={true}
-                          className='me-2 mb-2'
-                        >
-                          <CIcon icon={cilTextShapes} className="me-2" />
-                          Edit
-                        </CButton>
-                        </Link>
-                        {VerticallyCentered()}
-                    </CTableDataCell>
-
-                  </CTableRow>
-                  <CTableRow>
-                    <CTableHeaderCell scope="row">1</CTableHeaderCell>
-                    <CTableDataCell>Mark</CTableDataCell>
-                    <CTableDataCell>20222133</CTableDataCell>
-                    <CTableDataCell>ahhh@ads.ss</CTableDataCell>
-                    <CTableDataCell style={{width:'300px'}}>
-                    <Link to="/user/view">
-
-                      <CButton
-                          color='success'
-                          active={true}
-                          className='me-2 mb-2'
-                        >
-                          <CIcon icon={cilLowVision} className="me-2" />
-                          View
-                        </CButton>
-                        </Link>
-                        <Link to='/user/edit'>
-                        <CButton
-                          color='primary'
-                          active={true}
-                          className='me-2 mb-2'
-                        >
-                          <CIcon icon={cilTextShapes} className="me-2" />
-                          Edit
-                        </CButton>
-                        </Link>
-                        {VerticallyCentered()}
-                    </CTableDataCell>
-
-                  </CTableRow>
-                  <CTableRow>
-                    <CTableHeaderCell scope="row">1</CTableHeaderCell>
-                    <CTableDataCell>Mark</CTableDataCell>
-                    <CTableDataCell>20222133</CTableDataCell>
-                    <CTableDataCell>ahhh@ads.ss</CTableDataCell>
-                    <CTableDataCell style={{width:'300px'}}>
-                    <Link to="/user/view">
-
-                      <CButton
-                          color='success'
-                          active={true}
-                          className='me-2 mb-2'
-                        >
-                          <CIcon icon={cilLowVision} className="me-2" />
-                          View
-                        </CButton>
-                        </Link>
-                        <Link to='/user/edit'>
-                        <CButton
-                          color='primary'
-                          active={true}
-                          className='me-2 mb-2'
-                        >
-                          <CIcon icon={cilTextShapes} className="me-2" />
-                          Edit
-                        </CButton>
-                        </Link>
-                        {VerticallyCentered()}
-                    </CTableDataCell>
-
-                  </CTableRow>
-
+                        <UserDeleteConfirmationModal userId = {user._id} />
+                      </CTableDataCell>
+                    </CTableRow>
+                  ))}
                 </CTableBody>
               </CTable>
               <CPagination className="justify-content-center" aria-label="Page navigation example">
@@ -299,7 +132,6 @@ const UserList = () => {
             </div>
           </CCardBody>
         </CCard>
-
       </CCol>
     </CRow>
   )
